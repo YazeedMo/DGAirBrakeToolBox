@@ -1,0 +1,127 @@
+/* Everything */
+.root {
+	-fx-background-color: white;
+	-fx-font-family: "Arial";
+}
+
+/* Form Heading */
+#lblHeading {
+	-fx-font-weight: Bold;	
+}
+
+/* Form SubHeading*/
+#lblSubHeading {
+	-fx-font-size: 20;
+	-fx-border-color: black;
+	-fx-border-width: 0 0 1 0;
+}
+
+/* All Labels */
+.label {
+	-fx-font-weight: bold;
+}
+
+/* All Text Fields */
+.text-field {
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	-fx-text-box-border: transparent;
+
+}
+
+#tblA1 .text-field {
+	-fx-text-box-border: transparent;
+	-fx-border-color: black;
+	-fx-border-width: 0 0 0 1;
+}
+
+#tblA1 .text-area {
+	-fx-text-box-border: transparent;
+	-fx-border-color: black;
+	-fx-border-width: 0 0 0 1;
+}
+
+#tblA2 > * {
+	-fx-border-color: black;
+	-fx-border-width: 0.5;
+}
+
+.tblHeadings {
+	-fx-max-width: Infinity;
+	-fx-max-height: Infinity;
+	-fx-font-weight: bold;
+	-fx-alignment: center;
+	-fx-background-color: rgb(218, 218, 218);
+	-fx-border-color: black;
+	-fx-border-width: 3 0.25 0.25 0.25;
+}
+
+.tblFields {
+	-fx-max-width: Infinity;
+	-fx-max-height: Infinity;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	-fx-border-color: black;
+	-fx-border-width: 0.25 0.25 0.25 0.25;
+}
+
+#txtFieldDesc {
+	-fx-font-size: 16;
+	-fx-font-weight: bold;
+}
+
+/* Business Name/Address section */
+/* #businessDetails {
+	-fx-border-color: black;
+	-fx-border-width: 0 0 0 1;
+	-fx-background-insets: 10;
+} */
+
+/* All table headings labels */
+/* .tableHeadings {
+	-fx-max-width: Infinity;
+	-fx-max-height: Infinity;
+	-fx-font-weight: bold;
+	-fx-alignment: center;
+	-fx-background-color: rgb(218, 218, 218);
+	-fx-border-color: black;
+	-fx-border-width: 3 0.25 0.25 0.25;
+} */
+
+/* All table text fields for data entry */
+/* .tableFields {
+	-fx-max-width: Infinity;
+	-fx-max-height: Infinity;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	-fx-border-color: black;
+	-fx-border-width: 0.25 0.25 0.25 0.25;
+} */
+
+/* Job description */
+/* #description {
+	-fx-max-width: Infinity;
+	-fx-max-height: Infinity;
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	-fx-border-color: black;
+	-fx-border-width: 0.25 0 0.25 0;
+} */
+
+/* #tblMiddle > * {
+ 	-fx-border-color: black;
+	-fx-border-width: 0.3px;
+	-fx-text-box-border: transparent;
+	-fx-background-insets: 0;
+	-fx-max-width: Infinity;
+	-fx-max-height: Infinity;
+} */
+
+/* #tblBottom > * {
+ 	-fx-border-color: black;
+	-fx-border-width: 0.3px;
+	-fx-text-box-border: transparent;
+	-fx-background-insets: 0;
+} */
