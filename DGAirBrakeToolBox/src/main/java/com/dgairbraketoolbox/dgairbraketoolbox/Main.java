@@ -10,8 +10,12 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    public static Stage mainStage;
+
     @Override
     public void start(Stage stage) throws IOException {
+
+        mainStage = stage;
 
         Parent root = FXMLLoader.load(getClass().getResource("QuoteForm-view.fxml"));
         Scene scene = new Scene(root);

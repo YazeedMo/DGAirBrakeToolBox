@@ -321,8 +321,8 @@
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="99.0" prefWidth="869.0" spacing="60.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Save as PDF" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Save as draft Email" />
+            <Button fx:id="btnSaveAsPng" mnemonicParsing="false" onAction="#saveAsPng" prefHeight="40.0" prefWidth="150.0" text="Save as PNG" />
+            <Button fx:id="btnCreateDraft" mnemonicParsing="false" onAction="#createDraft" prefHeight="40.0" prefWidth="150.0" text="Create Draft" />
          </children>
       </HBox>
    </bottom>

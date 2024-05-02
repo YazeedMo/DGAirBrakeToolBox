@@ -12,7 +12,7 @@
 /* Form SubHeading*/
 #lblSubHeading {
 	-fx-font-size: 20;
-	-fx-border-color: black;
+	-fx-border-color: rgb(100, 100, 100);
 	-fx-border-width: 0 0 1 0;
 }
 

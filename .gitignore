@@ -25,3 +25,6 @@ replay_pid*
 
 # Folder with all planning sketches, diagrams, notes, etc
 Planning/
+
+# File containing authentication key for Gmail
+credentials.json

@@ -1,16 +1,28 @@
 package com.dgairbraketoolbox.dgairbraketoolbox.controllers;
 
+import com.dgairbraketoolbox.dgairbraketoolbox.Main;
 import com.dgairbraketoolbox.dgairbraketoolbox.controllers.changelisteners.FinalSubtotalListener;
 import com.dgairbraketoolbox.dgairbraketoolbox.controllers.changelisteners.QuantityPriceTotalListener;
 import com.dgairbraketoolbox.dgairbraketoolbox.controllers.changelisteners.TotalDeductFinalListener;
+import com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice.EmailHandler;
+import com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice.GMailer;
+import com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice.Email;
+import com.dgairbraketoolbox.dgairbraketoolbox.services.fileservice.SaveQuote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
+import java.io.File;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +46,12 @@ public class QuoteFormController {
 
     @FXML
     private GridPane tblD;
+
+    @FXML
+    private Button btnSaveAsPng;
+
+    @FXML
+    private Button btnCreateDraft;
 
 
     @FXML
@@ -247,5 +265,68 @@ public class QuoteFormController {
         return null;
     }
 
+
+    @FXML
+    void saveAsPng(ActionEvent event) {
+
+        // Added dependency in pom file:
+        //         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
+        //        <dependency>
+        //            <groupId>org.openjfx</groupId>
+        //            <artifactId>javafx-swing</artifactId>
+        //            <version>22.0.1</version>
+        //        </dependency>
+
+        // Also added to module-info file:
+        // requires javafx.swing;
+
+        // Research more on how this method works
+
+        btnSaveAsPng.setVisible(false);
+        btnCreateDraft.setVisible(false);
+
+        Stage stage = Main.mainStage;
+
+        SaveQuote.saveAsPng(stage);
+
+        btnSaveAsPng.setVisible(true);
+        btnCreateDraft.setVisible(true);
+
+    }
+
+    @FXML
+    void createDraft(ActionEvent event) {
+
+        btnSaveAsPng.setVisible(false);
+        btnCreateDraft.setVisible(false);
+
+        SaveQuote.saveAsPng(Main.mainStage);
+
+        btnSaveAsPng.setVisible(true);
+        btnCreateDraft.setVisible(true);
+
+        File file = new File("screenshot.png");
+
+        Email email = new Email();
+        email.setFromEmailAddress("yazmo0810@gmail.com");
+        email.setToEmailAddress("monkeymo0810@gmail.com");
+        if (txtFieldDesc.getText().isEmpty()) {
+            email.setSubject("Quote");
+        }
+        else {
+            email.setSubject(txtFieldDesc.getText());
+        }
+        email.setMessage("Find quote attached.");
+        email.addAttachment(file);
+
+        EmailHandler emailHandler = new GMailer();
+
+        try {
+            emailHandler.createDraft(email);
+        } catch (MessagingException | GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
