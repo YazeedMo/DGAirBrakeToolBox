@@ -1,4 +1,4 @@
-package com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice;
+package com.dgairbraketoolbox.dgairbraketoolbox.models;
 
 import java.io.File;
 import java.util.ArrayList;

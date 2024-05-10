@@ -23,5 +23,6 @@ module com.dgairbraketoolbox.dgairbraketoolbox {
     exports com.dgairbraketoolbox.dgairbraketoolbox;
     opens com.dgairbraketoolbox.dgairbraketoolbox.controllers to javafx.fxml;
     exports com.dgairbraketoolbox.dgairbraketoolbox.controllers;
+    exports com.dgairbraketoolbox.dgairbraketoolbox.models;
 
 }

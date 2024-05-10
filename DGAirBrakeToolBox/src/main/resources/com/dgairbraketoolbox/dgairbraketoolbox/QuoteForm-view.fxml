@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="874.0" prefWidth="885.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dgairbraketoolbox.dgairbraketoolbox.controllers.QuoteFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="874.0" prefWidth="885.0" stylesheets="@QuoteForm-view.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dgairbraketoolbox.dgairbraketoolbox.controllers.QuoteFormController">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="524.0" prefWidth="869.0" BorderPane.alignment="CENTER">
          <children>
@@ -322,7 +322,7 @@
       <HBox alignment="TOP_CENTER" prefHeight="99.0" prefWidth="869.0" spacing="60.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnSaveAsPng" mnemonicParsing="false" onAction="#saveAsPng" prefHeight="40.0" prefWidth="150.0" text="Save as PNG" />
-            <Button fx:id="btnCreateDraft" mnemonicParsing="false" onAction="#createDraft" prefHeight="40.0" prefWidth="150.0" text="Create Draft" />
+            <Button fx:id="btnEmail" mnemonicParsing="false" onAction="#email" prefHeight="40.0" prefWidth="150.0" text="Email" />
          </children>
       </HBox>
    </bottom>

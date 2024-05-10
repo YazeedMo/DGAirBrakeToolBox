@@ -1,7 +1,6 @@
 package com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice;
 
-import com.dgairbraketoolbox.dgairbraketoolbox.Main;
-import com.dgairbraketoolbox.dgairbraketoolbox.services.fileservice.SaveQuote;
+import com.dgairbraketoolbox.dgairbraketoolbox.models.Email;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -143,9 +142,14 @@ public class GMailer implements EmailHandler {
     }
 
     // Send Message
-    private static void sendMessage(Message message) throws IOException, GeneralSecurityException {
+    @Override
+    public void sendMessage(Email email) throws IOException, GeneralSecurityException, MessagingException {
 
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        MimeMessage mimeMessage = createMimeMessage(email);
+
+        Message message = encodeMimeMessage(mimeMessage);
+
+        final  NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
         Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredential(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)

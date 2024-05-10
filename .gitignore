@@ -28,3 +28,6 @@ Planning/
 
 # File containing authentication key for Gmail
 credentials.json
+
+# Folder containing Gmail Tokens
+Tokens/

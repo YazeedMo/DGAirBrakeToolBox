@@ -1,33 +1,36 @@
 package com.dgairbraketoolbox.dgairbraketoolbox.controllers;
 
-import com.dgairbraketoolbox.dgairbraketoolbox.Main;
+import com.dgairbraketoolbox.dgairbraketoolbox.Entry;
+import com.dgairbraketoolbox.dgairbraketoolbox.Utils.JavaFXUtils;
 import com.dgairbraketoolbox.dgairbraketoolbox.controllers.changelisteners.FinalSubtotalListener;
 import com.dgairbraketoolbox.dgairbraketoolbox.controllers.changelisteners.QuantityPriceTotalListener;
 import com.dgairbraketoolbox.dgairbraketoolbox.controllers.changelisteners.TotalDeductFinalListener;
-import com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice.EmailHandler;
-import com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice.GMailer;
-import com.dgairbraketoolbox.dgairbraketoolbox.services.emailservice.Email;
+import com.dgairbraketoolbox.dgairbraketoolbox.models.Email;
 import com.dgairbraketoolbox.dgairbraketoolbox.services.fileservice.SaveQuote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.mail.MessagingException;
-import java.io.File;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class QuoteFormController {
+
+    private Stage thisStage;
+    private Email currentEmail;
 
     @FXML
     private GridPane tblA1;
@@ -51,11 +54,13 @@ public class QuoteFormController {
     private Button btnSaveAsPng;
 
     @FXML
-    private Button btnCreateDraft;
+    private Button btnEmail;
 
 
     @FXML
     public void initialize() {
+
+        currentEmail = new Email();
 
         initTblA1();
         initTblA2();
@@ -269,64 +274,59 @@ public class QuoteFormController {
     @FXML
     void saveAsPng(ActionEvent event) {
 
-        // Added dependency in pom file:
-        //         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
-        //        <dependency>
-        //            <groupId>org.openjfx</groupId>
-        //            <artifactId>javafx-swing</artifactId>
-        //            <version>22.0.1</version>
-        //        </dependency>
-
-        // Also added to module-info file:
-        // requires javafx.swing;
-
-        // Research more on how this method works
+        thisStage = JavaFXUtils.getCurrentStage(btnEmail);
 
         btnSaveAsPng.setVisible(false);
-        btnCreateDraft.setVisible(false);
+        btnEmail.setVisible(false);
 
-        Stage stage = Main.mainStage;
+        Stage stage = Entry.mainStage;
 
-        SaveQuote.saveAsPng(stage);
+        SaveQuote.choosePngSaveLocation(stage);
 
         btnSaveAsPng.setVisible(true);
-        btnCreateDraft.setVisible(true);
+        btnEmail.setVisible(true);
 
     }
 
     @FXML
-    void createDraft(ActionEvent event) {
+    void email(ActionEvent event) throws IOException {
 
-        btnSaveAsPng.setVisible(false);
-        btnCreateDraft.setVisible(false);
+        // get this stage
+        thisStage = JavaFXUtils.getCurrentStage(btnEmail);
 
-        SaveQuote.saveAsPng(Main.mainStage);
+        // Set current Email
+        currentEmail.setFromEmailAddress("dgairbraketest@gmail.com");
+        currentEmail.setToEmailAddress("monkeymo0810@gmail.com");
+        currentEmail.setSubject(txtFieldDesc.getText());
+        currentEmail.setMessage("Quote attached");
 
-        btnSaveAsPng.setVisible(true);
-        btnCreateDraft.setVisible(true);
+        // Load view, root, and scene
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(JavaFXUtils.FXMLPath.EMAIL_SUMMARY.getPath()));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
 
-        File file = new File("screenshot.png");
+        // Get controller class and pass data to that view's controller
+        EmailSummaryController summaryController = loader.getController();
+        summaryController.setCurrentEmail(currentEmail);
+        summaryController.setParentStage(thisStage);
+        summaryController.setQuoteFormController(this);
 
-        Email email = new Email();
-        email.setFromEmailAddress("yazmo0810@gmail.com");
-        email.setToEmailAddress("monkeymo0810@gmail.com");
-        if (txtFieldDesc.getText().isEmpty()) {
-            email.setSubject("Quote");
-        }
-        else {
-            email.setSubject(txtFieldDesc.getText());
-        }
-        email.setMessage("Find quote attached.");
-        email.addAttachment(file);
+        // Setup and show stage
+        Stage emailSummaryStage = new Stage();
+        emailSummaryStage.initModality(Modality.APPLICATION_MODAL);
+        emailSummaryStage.initOwner(thisStage);
 
-        EmailHandler emailHandler = new GMailer();
-
-        try {
-            emailHandler.createDraft(email);
-        } catch (MessagingException | GeneralSecurityException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        emailSummaryStage.setScene(scene);
+        emailSummaryStage.showAndWait();
 
     }
 
+    public Button getBtnSaveAsPng() {
+        return btnSaveAsPng;
+    }
+
+    public Button getBtnEmail() {
+        return btnEmail;
+    }
 }

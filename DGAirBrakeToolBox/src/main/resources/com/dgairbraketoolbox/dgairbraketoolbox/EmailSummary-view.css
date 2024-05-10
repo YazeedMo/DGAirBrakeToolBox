@@ -1,0 +1,16 @@
+.root {
+    -fx-font-family: "Arial";
+}
+
+#btnBack {
+    -fx-background-radius: 0;
+}
+
+#heading {
+    -fx-font-size: 30;
+    -fx-font-weight: Bold;
+}
+
+.label {
+    -fx-font-weight: bold;
+}
