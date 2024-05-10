@@ -30,4 +30,4 @@ Planning/
 credentials.json
 
 # Folder containing Gmail Tokens
-Tokens/
+token/
